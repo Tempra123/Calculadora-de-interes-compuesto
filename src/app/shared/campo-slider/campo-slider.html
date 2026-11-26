@@ -1,0 +1,17 @@
+<p>campo-slider works!</p>
+<div class="campo">
+  <label>{{ etiqueta() }}</label>
+
+  <div class="entrada">
+    @if (prefijo()) { <span>{{ prefijo() }}</span> }
+    <input type="number" [min]="min()" [step]="paso()" [value]="valor()" (input)="alCambiar($event)" />
+    @if (sufijo()) { <span>{{ sufijo() }}</span> }
+  </div>
+
+  <input type="range" [min]="min()" [max]="max()" [step]="paso()" [value]="valor()" (input)="alCambiar($event)" />
+
+  <div class="extremos">
+    <span>{{ min() }}</span>
+    <span>{{ max() }}</span>
+  </div>
+</div>

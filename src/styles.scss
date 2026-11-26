@@ -1,0 +1,32 @@
+:root {
+  /* Colores de marca */
+  --morado-oscuro: #2d0f4a;
+  --morado: #5b2a86;
+  --lavanda: #efe9f7;
+  --fondo: #f7f4fb;
+  --rojo: #e11d48;
+  --blanco: #ffffff;
+
+  /* Texto */
+  --texto: #1f0a33;
+  --texto-suave: #6b5b7e;
+
+  /* Forma */
+  --radio: 14px;
+  --sombra: 0 4px 20px rgba(45, 15, 74, 0.08);
+
+  /* Tipografía */
+  --fuente: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  color: var(--texto);
+  background: var(--fondo);
+  line-height: 1.5;
+}

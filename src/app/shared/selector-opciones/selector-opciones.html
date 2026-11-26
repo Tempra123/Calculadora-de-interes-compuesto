@@ -1,0 +1,8 @@
+<p>selector-opciones works!</p>
+<div class="grupo">
+  @for (o of opciones(); track o.valor) {
+    <button type="button" [class.activo]="o.valor === valor()" (click)="valor.set(o.valor)">
+      {{ o.etiqueta }}
+    </button>
+  }
+</div>

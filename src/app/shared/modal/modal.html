@@ -1,0 +1,12 @@
+<p>modal works!</p>
+@if (abierto()) {
+  <div class="fondo" (click)="cerrar.emit()">
+    <div class="ventana" (click)="$event.stopPropagation()">
+      <header>
+        <h2>{{ titulo() }}</h2>
+        <button type="button" (click)="cerrar.emit()" aria-label="Cerrar">✕</button>
+      </header>
+      <ng-content />
+    </div>
+  </div>
+}

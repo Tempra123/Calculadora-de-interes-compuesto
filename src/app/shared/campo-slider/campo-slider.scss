@@ -1,0 +1,14 @@
+.campo { margin-bottom: 1.25rem; }
+label { font-weight: 700; font-size: 0.9rem; }
+
+.entrada {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: var(--blanco); border: 1px solid var(--lavanda);
+  border-radius: var(--radio); padding: 0.6rem 0.9rem; margin: 0.4rem 0;
+
+  input { border: 0; outline: 0; width: 100%; font: inherit; font-size: 1.2rem; font-weight: 700; background: transparent; }
+  span { color: var(--texto-suave); }
+}
+
+input[type='range'] { width: 100%; accent-color: var(--rojo); }
+.extremos { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--texto-suave); }

@@ -1,0 +1,66 @@
+<p>calculadora works!</p>
+<section class="calculadora">
+  <app-selector-opciones [opciones]="tipos" [(valor)]="tipo" />
+
+  @if (tipo() === 'proyector') {
+    <div class="panel">
+      <div class="entradas">
+        <app-selector-opciones [opciones]="frecuencias" [(valor)]="frecuencia" />
+        <app-campo-slider etiqueta="Capital inicial" prefijo="$" [max]="500000" [paso]="1000" [(valor)]="capital" />
+        <app-campo-slider etiqueta="Aporte mensual" prefijo="$" [max]="5000" [paso]="50" [(valor)]="aporte" />
+        <app-campo-slider etiqueta="Rendimiento anual" sufijo="%" [min]="1" [max]="20" [paso]="0.5" [(valor)]="tasa" />
+        <app-campo-slider etiqueta="Horizonte temporal" sufijo="años" [min]="1" [max]="40" [(valor)]="anios" />
+      </div>
+
+      <div class="resultados">
+        <app-tarjeta titulo="Saldo proyectado" [texto]="(proyeccion().saldoFinal | currency:'USD':'symbol':'1.0-0') ?? ''" />
+        <app-tarjeta titulo="Capital invertido" [texto]="(proyeccion().capitalInvertido | currency:'USD':'symbol':'1.0-0') ?? ''" />
+        <app-tarjeta titulo="Interés generado" [texto]="(proyeccion().interesGenerado | currency:'USD':'symbol':'1.0-0') ?? ''" />
+        <button type="button" (click)="verDetalle.set(true)">Ver año por año</button>
+      </div>
+    </div>
+  } @else {
+    <div class="panel">
+      <div class="entradas">
+        <app-selector-opciones [opciones]="modos" [(valor)]="modo" />
+        <p class="pregunta">¿Qué quiero calcular?</p>
+        <app-selector-opciones [opciones]="buscables" [(valor)]="buscar" />
+
+        @if (buscar() !== 'presente') {
+          <app-campo-slider etiqueta="Valor presente (P)" prefijo="$" [max]="100000" [paso]="100" [(valor)]="P" />
+        }
+        @if (buscar() !== 'futuro') {
+          <app-campo-slider etiqueta="Valor futuro (F)" prefijo="$" [max]="100000" [paso]="100" [(valor)]="F" />
+        }
+        @if (buscar() !== 'tasa') {
+          <app-campo-slider etiqueta="Tasa por año (i)" sufijo="%" [min]="1" [max]="30" [paso]="0.5" [(valor)]="i" />
+        }
+        @if (buscar() !== 'periodos') {
+          <app-campo-slider etiqueta="Años (n)" [min]="1" [max]="50" [(valor)]="n" />
+        }
+      </div>
+
+      <div class="resultados">
+        <app-tarjeta titulo="Resultado" [texto]="textoRespuesta()" />
+      </div>
+    </div>
+  }
+
+  <app-modal titulo="Evolución año por año" [abierto]="verDetalle()" (cerrar)="verDetalle.set(false)">
+    <table>
+      <thead>
+        <tr><th>Año</th><th>Invertido</th><th>Interés</th><th>Saldo</th></tr>
+      </thead>
+      <tbody>
+        @for (f of proyeccion().trayectoria; track f.anio) {
+          <tr>
+            <td>{{ f.anio }}</td>
+            <td>{{ f.capitalInvertido | currency:'USD':'symbol':'1.0-0' }}</td>
+            <td>{{ f.interesAcumulado | currency:'USD':'symbol':'1.0-0' }}</td>
+            <td>{{ f.saldo | currency:'USD':'symbol':'1.0-0' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </app-modal>
+</section>
